@@ -1,5 +1,3 @@
-@import "styles";
-
 nav {
   display: flex;
   justify-content: space-between;
@@ -14,4 +12,8 @@ nav {
 
 ul {
   list-style: none;
+}
+
+.link {
+  margin: 12px auto;
 }
