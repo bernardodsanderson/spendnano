@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :links, dependent: :destroy
+  has_many :links, dependent: :destroy, :comments
   
   validates :username,
             presence: true,

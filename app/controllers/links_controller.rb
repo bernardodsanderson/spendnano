@@ -9,6 +9,10 @@ class LinksController < ApplicationController
     @link = Link.new
   end
 
+  def show
+    @link = Link.find_by(id: params[:id])
+  end
+
   def edit
     link = Link.find_by(id: params[:id])
 
