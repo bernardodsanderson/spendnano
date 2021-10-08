@@ -11,6 +11,7 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.find_by(id: params[:id])
+    @comments = @link.comments
   end
 
   def edit
