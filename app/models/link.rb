@@ -14,4 +14,8 @@ class Link < ApplicationRecord
   def comment_count
     comments.length
   end
+
+  def upvotes
+    votes.sum(:upvote)
+  end
 end

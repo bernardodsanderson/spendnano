@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_005131) do
+ActiveRecord::Schema.define(version: 2021_10_09_021353) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_005131) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "points", default: 1
+    t.float "hot_score", default: 0.0
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 
@@ -39,7 +41,20 @@ ActiveRecord::Schema.define(version: 2021_10_06_005131) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "link_id"
+    t.integer "upvote", default: 0
+    t.integer "downvote", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["link_id"], name: "index_votes_on_link_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "comments", "links"
   add_foreign_key "comments", "users"
   add_foreign_key "links", "users"
+  add_foreign_key "votes", "links"
+  add_foreign_key "votes", "users"
 end
