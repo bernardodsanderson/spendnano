@@ -1,12 +1,16 @@
 class LinksController < ApplicationController
-  before_action :prevent_unauthorized_user_access, only: [:new, :edit]
+  before_action :prevent_unauthorized_user_access, except: [:show, :index]
 
   def index
-    @links = Link.all
+    @links = Link.hottest
   end
   
   def new
     @link = Link.new
+  end
+
+  def newest
+    @newest = Link.newest
   end
 
   def show
@@ -58,13 +62,33 @@ class LinksController < ApplicationController
   def upvote
     link = Link.find_by(id: params[:id])
 
-      if current_user.upvoted?(link)
-        current_user.remove_vote(link)
-      else
-        current_user.upvote(link)
-      end
+    if current_user.upvoted?(link)
+      current_user.remove_vote(link)
+    elsif current_user.downvoted?(link)
+      current_user.remove_vote(link)
+      current_user.upvote(link)
+    else
+      current_user.upvote(link)
+    end
 
-      redirect_to root_path
+    link.calc_hot_score
+    redirect_to root_path
+  end
+
+  def downvote
+    link = Link.find_by(id: params[:id])
+
+    if current_user.downvoted?(link)
+      current_user.remove_vote(link)
+    elsif current_user.upvoted?(link)
+      current_user.remove_vote(link)
+      current_user.downvote(link)
+    else
+      current_user.downvote(link)
+    end
+
+    link.calc_hot_score
+    redirect_to root_path
   end
 
   private
