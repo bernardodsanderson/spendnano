@@ -32,7 +32,7 @@ class Link < ApplicationRecord
     time_ago_in_hours = ((Time.now - created_at) / 3600).round
     score = hot_score(points, time_ago_in_hours)
 
-    update_attributes(points: points, hot_score: score)
+    update(points: points, hot_score: score)
   end
 
   private
