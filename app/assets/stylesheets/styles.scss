@@ -3,6 +3,16 @@ nav {
   justify-content: space-between;
   padding: 12px 0;
 
+  strong {
+    position: relative;
+    margin-bottom: 16px;
+    top: -14px;
+  }
+
+  .logo {
+    border-radius: 4px;
+  }
+
   .navlinks {
     a {
       padding: 0 12px;
@@ -36,4 +46,20 @@ ul {
 .comment {
   margin: 12px auto;
   border-bottom: 2px solid #f5f5f5;
+}
+
+.navlinks {
+  font-weight: bold;
+}
+
+.link {
+  .title {
+    a {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  }
+  .metadata {
+    opacity: 0.5;
+  }
 }
